@@ -33,11 +33,8 @@ class ProductController {
 
   async modifyProduct(req, res) {
     const { id } = req.params;
-    console.log(id);
     const data = req.body;
-    console.log(data)
     const product = await this.productService.modifyProduct(id, data);
-    console.log(product);
     res.sendStatus(200);
   }
 }
