@@ -17,5 +17,12 @@ router.post("/products", (req, res) => {
 router.get("/products", (req, res) => {
   ProductInstance.getProducts(req, res);
 });
+router.get("/products/:id", (req, res) => {
+  ProductInstance.getProductById(req, res);
+});
+
+router.put("/product/:id", (req, res) => {
+  ProductInstance.modifyProduct(req, res);
+});
 
 module.exports = router;
