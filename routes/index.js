@@ -10,6 +10,8 @@ router.get("/", function (req, res, next) {
   res.render("index", { title: "Express" });
 });
 
+//!Product Routes
+
 router.post("/products", (req, res) => {
   ProductInstance.addProduct(req, res);
 });
@@ -32,6 +34,12 @@ router.get("/products/:id", (req, res) => {
 
 router.put("/product/:id", (req, res) => {
   ProductInstance.modifyProduct(req, res);
+});
+
+//!User Routes
+
+router.get("/users", (req, res) => {
+  
 });
 
 module.exports = router;
