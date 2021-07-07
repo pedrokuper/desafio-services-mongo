@@ -33,9 +33,17 @@ class ProductController {
 
   async modifyProduct(req, res) {
     const { id } = req.params;
-    const data = req.body;
-    const product = await this.productService.modifyProduct(id, data);
-    res.sendStatus(200);
+
+    if (Object.entries(req.body).length !== 0) { // Esta linea chequea que el objeto esté vacio. Si usamos solamente req.body pasa la validación como si no estuviera vacío.
+      try {
+        await this.productService.modifyProduct(id, req.body);
+        res.sendStatus(200);
+      } catch {
+        res.sendStatus(500);
+      }
+    } else {
+      res.sendStatus(400);
+    }
   }
 }
 
