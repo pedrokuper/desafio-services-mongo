@@ -22,6 +22,10 @@ router.get("/products/freeshipping", (req, res) => {
   ProductInstance.getFreeShipping(req, res);
 });
 
+router.put("/products/discount", (req, res) => {
+  ProductInstance.getDiscount(req, res);
+});
+
 router.get("/products/:id", (req, res) => {
   ProductInstance.getProductById(req, res);
 });

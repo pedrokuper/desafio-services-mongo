@@ -20,6 +20,11 @@ class ProductService {
     const product = Product.findByIdAndUpdate({ _id: id }, data).exec();
     return product;
   }
+
+  addDiscount(data) {
+    const update = Product.updateMany(data).exec();
+    return update;
+  }
 }
 
 module.exports = ProductService;

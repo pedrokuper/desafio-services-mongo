@@ -24,6 +24,9 @@ const productSchema = mongoose.Schema({
     enum: ["paid", "free"],
     default: "paid",
   },
+  discount: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model("Product", productSchema);

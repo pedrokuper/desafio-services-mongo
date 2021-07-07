@@ -54,5 +54,17 @@ class ProductController {
     });
     res.json(hasFreeShipping).status(200);
   }
+
+  // Hay que pasar la propiedad discount: 0 por el body. Es la idea? O la idea es directamente que a partir de pegarle a a /products/discount se genere el discount: 0 en la base?
+  //Cambiar la lógica de esto para que primero haga la query, chequee si existe discount, y dsp haga el put.
+  async getDiscount(req, res) {
+    const { body } = req;
+    if (Object.entries(body).length !== 0) {
+      await this.productService.addDiscount(body);
+      res.sendStatus(200);
+    } else {
+      res.send(400);
+    }
+  }
 }
 module.exports = ProductController;
