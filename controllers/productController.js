@@ -34,7 +34,8 @@ class ProductController {
   async modifyProduct(req, res) {
     const { id } = req.params;
 
-    if (Object.entries(req.body).length !== 0) { // Esta linea chequea que el objeto esté vacio. Si usamos solamente req.body pasa la validación como si no estuviera vacío.
+    if (Object.entries(req.body).length !== 0) {
+      // Esta linea chequea que el objeto esté vacio. Si usamos solamente req.body pasa la validación como si no estuviera vacío.
       try {
         await this.productService.modifyProduct(id, req.body);
         res.sendStatus(200);
@@ -45,6 +46,13 @@ class ProductController {
       res.sendStatus(400);
     }
   }
-}
 
+  async getFreeShipping(req, res, next) {
+    const query = await this.productService.getProducts();
+    const hasFreeShipping = query.filter((item) => {
+      return item.shipping === "free";
+    });
+    res.json(hasFreeShipping).status(200);
+  }
+}
 module.exports = ProductController;

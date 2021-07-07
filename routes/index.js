@@ -17,6 +17,11 @@ router.post("/products", (req, res) => {
 router.get("/products", (req, res) => {
   ProductInstance.getProducts(req, res);
 });
+
+router.get("/products/freeshipping", (req, res) => {
+  ProductInstance.getFreeShipping(req, res);
+});
+
 router.get("/products/:id", (req, res) => {
   ProductInstance.getProductById(req, res);
 });
