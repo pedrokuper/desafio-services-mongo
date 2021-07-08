@@ -4,6 +4,9 @@ var router = express.Router();
 const ProductController = require("./../controllers/productController");
 const ProductService = require("../services/productService");
 const ProductInstance = new ProductController(new ProductService());
+const UserController = require("./../controllers/userController");
+const UserService = require("./../services/userService");
+const UserInstance = new UserController(new UserService());
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
@@ -38,8 +41,8 @@ router.put("/product/:id", (req, res) => {
 
 //!User Routes
 
-router.get("/users", (req, res) => {
-  
+router.post("/users", (req, res) => {
+  UserInstance.addUser(req, res);
 });
 
 module.exports = router;
