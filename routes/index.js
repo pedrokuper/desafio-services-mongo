@@ -46,11 +46,11 @@ router.post("/users", (req, res) => {
 });
 
 router.get("/users", (req, res) => {
-  UserInstance.getUsers(req,res)
+  UserInstance.getUsers(req, res);
 });
 
 router.get("/users/:id", (req, res) => {
-  
+  UserInstance.getUserById(req, res);
 });
 
 router.get("/users/:handler", (req, res) => {});

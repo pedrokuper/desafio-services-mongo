@@ -5,8 +5,13 @@ class UserController {
 
   async getUsers(req, res) {
     const users = await this.userService.getUsers();
-    console.log(users)
-    res.send("usuarios");
+    res.json(users);
+  }
+
+  async getUserById(req, res) {
+    const { id } = req.params;
+    const user = await this.userService.getUserById(id);
+    res.json(user).status(200);
   }
 
   async addUser(req, res) {

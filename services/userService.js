@@ -10,6 +10,11 @@ class UserService {
     const query = User.find().exec();
     return query;
   }
+
+  getUserById(id) {
+    const user = User.findById(id)
+    return user;
+  }
 }
 
 module.exports = UserService;
