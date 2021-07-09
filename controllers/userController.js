@@ -8,10 +8,18 @@ class UserController {
     res.json(users);
   }
 
-  async getUserById(req, res) {
+  async getUserById(req, res, next) {
     const { id } = req.params;
     const user = await this.userService.getUserById(id);
     res.json(user).status(200);
+  }
+
+  async getUserByHandler(req, res) {
+    const { handler } = req.params;
+    console.log(handler, "handler");
+    // const user = await this.userService.getUserByHandler(handler);
+    // console.log(user, "user");
+    res.send("a");
   }
 
   async addUser(req, res) {

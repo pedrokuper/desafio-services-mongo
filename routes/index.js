@@ -49,10 +49,12 @@ router.get("/users", (req, res) => {
   UserInstance.getUsers(req, res);
 });
 
-router.get("/users/:id", (req, res) => {
-  UserInstance.getUserById(req, res);
+router.get("/user/:handler", (req, res) => {
+  UserInstance.getUserByHandler(req, res);
 });
 
-router.get("/users/:handler", (req, res) => {});
+router.get("/user/:id", (req, res) => {
+  UserInstance.getUserById(req, res, next);
+});
 
 module.exports = router;

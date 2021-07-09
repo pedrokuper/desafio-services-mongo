@@ -12,7 +12,12 @@ class UserService {
   }
 
   getUserById(id) {
-    const user = User.findById(id)
+    const user = User.findById(id);
+    return user;
+  }
+
+  getUserByHandler(handler) {
+    const user = User.findOne({ user: handler }).exec();
     return user;
   }
 }
