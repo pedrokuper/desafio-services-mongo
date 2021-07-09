@@ -45,4 +45,14 @@ router.post("/users", (req, res) => {
   UserInstance.addUser(req, res);
 });
 
+router.get("/users", (req, res) => {
+  UserInstance.getUsers(req,res)
+});
+
+router.get("/users/:id", (req, res) => {
+  
+});
+
+router.get("/users/:handler", (req, res) => {});
+
 module.exports = router;

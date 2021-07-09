@@ -3,6 +3,12 @@ class UserController {
     this.userService = userService;
   }
 
+  async getUsers(req, res) {
+    const users = await this.userService.getUsers();
+    console.log(users)
+    res.send("usuarios");
+  }
+
   async addUser(req, res) {
     const { body } = req;
 

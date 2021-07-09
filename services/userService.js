@@ -5,6 +5,11 @@ class UserService {
     const newUser = new User(data);
     return newUser.save();
   }
+
+  getUsers() {
+    const query = User.find().exec();
+    return query;
+  }
 }
 
 module.exports = UserService;
