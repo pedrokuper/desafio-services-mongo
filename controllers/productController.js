@@ -3,16 +3,17 @@ class ProductController {
     this.productService = productService;
   }
 
-  //limit x (pageNumber - 1) = offset
-
   async getProducts(req, res) {
+    //!limit x (pageNumber - 1) = offset
+
+    // TODO : Agregar validaciones para todos los métodos de la api
+
     const { page, limit } = req.query;
 
     let data = {
       limit: parseInt(limit),
       offset: limit * (page - 1),
     };
-
 
     const query = await this.productService.getProducts(data);
     res.json(query).status(200);
