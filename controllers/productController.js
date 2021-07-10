@@ -3,8 +3,18 @@ class ProductController {
     this.productService = productService;
   }
 
+  //limit x (pageNumber - 1) = offset
+
   async getProducts(req, res) {
-    const query = await this.productService.getProducts();
+    const { page, limit } = req.query;
+
+    let data = {
+      limit: parseInt(limit),
+      offset: limit * (page - 1),
+    };
+
+
+    const query = await this.productService.getProducts(data);
     res.json(query).status(200);
   }
 
