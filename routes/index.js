@@ -42,19 +42,19 @@ router.put("/product/:id", (req, res) => {
 //!User Routes
 
 router.post("/users", (req, res) => {
-  UserInstance.addUser(req, res);
+  return UserInstance.addUser(req, res);
 });
 
 router.get("/users", (req, res) => {
-  UserInstance.getUsers(req, res);
+  return UserInstance.getUsers(req, res);
 });
 
-router.get("/user/:handler", (req, res) => {
-  UserInstance.getUserByHandler(req, res);
+router.get("/user/:id", (req, res, next) => {
+  return UserInstance.getUserById(req, res, next);
 });
 
-router.get("/user/:id", (req, res) => {
-  UserInstance.getUserById(req, res, next);
+router.get("/user/handler/:handler", (req, res) => {
+  return UserInstance.getUserByHandler(req, res);
 });
 
 module.exports = router;

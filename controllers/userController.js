@@ -12,14 +12,15 @@ class UserController {
     const { id } = req.params;
     const user = await this.userService.getUserById(id);
     res.json(user).status(200);
+    if (!user) {
+      next("route");
+    }
   }
 
   async getUserByHandler(req, res) {
     const { handler } = req.params;
-    console.log(handler, "handler");
-    // const user = await this.userService.getUserByHandler(handler);
-    // console.log(user, "user");
-    res.send("a");
+    const user = await this.userService.getUserByHandler(handler);
+    res.json(user);
   }
 
   async addUser(req, res) {
