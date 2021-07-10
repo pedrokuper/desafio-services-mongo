@@ -4,7 +4,12 @@ class UserController {
   }
 
   async getUsers(req, res) {
-    const users = await this.userService.getUsers();
+    const { limit } = req.query;
+    const data = {
+      limit: parseInt(limit),
+    };
+    const users = await this.userService.getUsers(data);
+
     res.json(users);
   }
 
@@ -12,9 +17,6 @@ class UserController {
     const { id } = req.params;
     const user = await this.userService.getUserById(id);
     res.json(user).status(200);
-    if (!user) {
-      next("route");
-    }
   }
 
   async getUserByHandler(req, res) {
@@ -24,11 +26,19 @@ class UserController {
   }
 
   async addUser(req, res) {
-    const { body } = req;
-
-    await this.userService.addUser(body);
-    // console.log(body);
-    res.send("agregar usuario");
+    const data = req.body;
+    const { user, name } = data;
+    if (user && name) {
+      try {
+        await this.userService.addUser(data);
+        res.send("Usuario creado").status(200);
+      } catch (err) {
+        console.log(err);
+        res.send("Error en la creación").status(500);
+      }
+    } else {
+      res.sendStatus(400);
+    }
   }
 }
 

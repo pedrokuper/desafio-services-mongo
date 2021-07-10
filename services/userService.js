@@ -6,8 +6,9 @@ class UserService {
     return newUser.save();
   }
 
-  getUsers() {
-    const query = User.find().exec();
+  getUsers(data) {
+    const query = User.find().limit(data.limit).exec();
+    console.log(data.limit);
     return query;
   }
 

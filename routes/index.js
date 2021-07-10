@@ -1,12 +1,18 @@
 var express = require("express");
 var router = express.Router();
 
+//& Products
 const ProductController = require("./../controllers/productController");
 const ProductService = require("../services/productService");
 const ProductInstance = new ProductController(new ProductService());
+//& Users
 const UserController = require("./../controllers/userController");
 const UserService = require("./../services/userService");
 const UserInstance = new UserController(new UserService());
+//& Sales
+const SaleController = require("./../controllers/saleController");
+const SaleService = require("./../services/saleService");
+const SaleInstance = new SaleController(new SaleService());
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
