@@ -2,7 +2,7 @@ const Product = require("./../models/productModel");
 
 class ProductService {
   getProducts(data) {
-    const query = Product.find().skip(data.offset).limit(data.limit).exec();
+    const query = Product.find().skip(data.offset).limit(3).exec();
     return query;
   }
 
