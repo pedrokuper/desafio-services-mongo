@@ -6,6 +6,11 @@ class ProductService {
     return query;
   }
 
+  getProductByName(name) {
+    const query = Product.findOne({ name: name }).exec();
+    return query;
+  }
+
   getProductById(id) {
     const query = Product.findById({ _id: id }).exec();
     return query;

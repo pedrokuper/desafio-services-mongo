@@ -1,16 +1,16 @@
+// TODO : Agregar validaciones para todos los métodos de la api
+
 class ProductController {
   constructor(productService) {
     this.productService = productService;
   }
 
   async getProducts(req, res) {
+    //Pagination
     //!limit x (pageNumber - 1) = offset
 
-    // TODO : Agregar validaciones para todos los métodos de la api
-
     const { page } = req.query;
-
-    let data = {
+    const data = {
       offset: 3 * (page - 1),
     };
 
@@ -65,7 +65,6 @@ class ProductController {
     res.json(hasFreeShipping).status(200);
   }
 
-  // Hay que pasar la propiedad discount: 0 por el body. Es la idea? O la idea es directamente que a partir de pegarle a a /products/discount se genere el discount: 0 en la base?
   //Cambiar la lógica de esto para que primero haga la query, chequee si existe discount, y dsp haga el put.
   async getDiscount(req, res) {
     const { body } = req;

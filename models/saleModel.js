@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const salesSchema = mongoose.Schema({
-  prodcut: {
+  product: {
     type: Object,
     required: true,
   },
@@ -11,8 +11,6 @@ const salesSchema = mongoose.Schema({
   },
   date: {
     type: Date,
-    default: new Date("<YYYY-mm-ddTHH:MM:ss>"),
-    required: true,
   },
 });
 

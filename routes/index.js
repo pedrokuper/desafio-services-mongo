@@ -12,7 +12,10 @@ const UserInstance = new UserController(new UserService());
 //& Sales
 const SaleController = require("./../controllers/saleController");
 const SaleService = require("./../services/saleService");
-const SaleInstance = new SaleController(new SaleService());
+const SaleInstance = new SaleController(
+  new SaleService(),
+  new ProductService()
+);
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
@@ -61,6 +64,24 @@ router.get("/user/:id", (req, res, next) => {
 
 router.get("/user/handler/:handler", (req, res) => {
   return UserInstance.getUserByHandler(req, res);
+});
+
+//!Sales Routes
+
+router.post("/sales", (req, res) => {
+  return SaleInstance.addSale(req, res);
+});
+
+router.get("/sales", (req, res) => {
+  return SaleInstance.getSales(req, res);
+});
+
+router.get("/sales/:id", (req, res) => {
+  return SaleInstance.getSaleById(req, res);
+});
+
+router.get("/sales/user/:handler", (req, res) => {
+  return SaleInstance.getSaleByUser(req, res);
 });
 
 module.exports = router;
