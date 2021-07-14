@@ -31,20 +31,42 @@ class SaleController {
   }
 
   async getSales(req, res) {
-    const sales = await this.saleService.getSales();
-    res.json(sales).status(200);
+    try {
+      const sales = await this.saleService.getSales();
+      res.json(sales).status(200);
+    } catch (e) {
+      res.sendStatus(500);
+    }
   }
 
   async getSaleById(req, res) {
     const { id } = req.params;
-    const sale = await this.saleService.getSaleById(id);
-    res.json(sale).status(200);
+    if (id) {
+      try {
+        const sale = await this.saleService.getSaleById(id);
+        res.json(sale).status(200);
+      } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+      }
+    } else {
+      res.sendStatus(400);
+    }
   }
 
   async getSaleByUser(req, res) {
     const { handler } = req.params;
-    const sale = await this.saleService.getSaleByUser(handler);
-    res.json(sale).status(200);
+    if (handler) {
+      try {
+        const sale = await this.saleService.getSaleByUser(handler);
+        res.json(sale).status(200);
+      } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+      }
+    } else {
+      res.sendStatus(400);
+    }
   }
 }
 
