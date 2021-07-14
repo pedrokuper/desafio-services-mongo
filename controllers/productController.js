@@ -1,5 +1,3 @@
-// TODO : Agregar validaciones para todos los métodos de la api
-
 class ProductController {
   constructor(productService) {
     this.productService = productService;
@@ -57,10 +55,19 @@ class ProductController {
 
   async modifyProduct(req, res) {
     const { id } = req.params;
-    const bodyParams = ["stockQty", "shipping","name","price", "discount"]
+    const { stockQty, price, name, shipping, description, discount, category } =
+      req.body;
 
-    if ( bodyParams.includes) {
-      // Esta linea chequea que el objeto esté vacio. Si usamos solamente req.body pasa la validación como si no estuviera vacío. Object.entries(req.body).length !== 0 &&
+    //Is this OK? Or is this too much?
+    if (
+      stockQty ||
+      price ||
+      name ||
+      shipping ||
+      description ||
+      category ||
+      discount
+    ) {
       try {
         await this.productService.modifyProduct(id, req.body);
         res.send("Producto actualizado correctamente").status(200);
@@ -73,21 +80,25 @@ class ProductController {
   }
 
   async getFreeShipping(req, res, next) {
-    const query = await this.productService.getProducts();
-    const hasFreeShipping = query.filter((item) => {
-      return item.shipping === "free";
-    });
-    res.json(hasFreeShipping).status(200);
+    try {
+      const query = await this.productService.getFreeShipping();
+      res.json(query).status(200);
+    } catch (e) {
+      res.sendStatus(500);
+    }
   }
 
-  //Cambiar la lógica de esto para que primero haga la query, chequee si existe discount, y dsp haga el put.
   async getDiscount(req, res) {
-    const { body } = req;
-    if (Object.entries(body).length !== 0) {
-      await this.productService.addDiscount(body);
-      res.sendStatus(200);
+    const { discount } = req.body;
+    if (discount) {
+      try {
+        await this.productService.addDiscount(body);
+        res.sendStatus(200);
+      } catch (e) {
+        res.sendStatus(500);
+      }
     } else {
-      res.send(400);
+      res.sendStatus(400);
     }
   }
 }

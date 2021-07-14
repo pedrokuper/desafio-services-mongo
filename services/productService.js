@@ -16,6 +16,11 @@ class ProductService {
     return query;
   }
 
+  getFreeShipping() {
+    const query = Product.find({ shipping: "free" }).exec();
+    return query;
+  }
+
   addProduct(data) {
     const newProduct = new Product(data);
     return newProduct.save();
