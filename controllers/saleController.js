@@ -2,7 +2,6 @@ class SaleController {
   constructor(saleService, productService) {
     this.saleService = saleService;
     this.productService = productService;
-    this.date = dayjs();
   }
 
   async addSale(req, res) {
