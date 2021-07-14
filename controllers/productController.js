@@ -3,29 +3,43 @@
 class ProductController {
   constructor(productService) {
     this.productService = productService;
+    this.limit = 3;
   }
 
   async getProducts(req, res) {
-    //Pagination
-    //!limit x (pageNumber - 1) = offset
-
     const { page } = req.query;
-    const data = {
-      offset: 3 * (page - 1),
-    };
 
-    const query = await this.productService.getProducts(data);
-    res.json(query).status(200);
+    const data = {
+      limit: this.limit,
+      offset: this.limit * (page - 1),
+    };
+    if (page) {
+      try {
+        const query = await this.productService.getProducts(data);
+        res.json(query).status(200);
+      } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+      }
+    } else {
+      res.sendStatus(400);
+    }
   }
 
   async getProductById(req, res) {
     const { id } = req.params;
-    const query = await this.productService.getProductById(id);
-    res.json(query).status(200);
+    if (id) {
+      try {
+        const query = await this.productService.getProductById(id);
+        res.json(query).status(200);
+      } catch (e) {
+        res.send("Información incorrecta. Revise el ID").status(500);
+      }
+    } else {
+      res.sendStatus(400);
+    }
   }
 
-  // Sí price, name y stockQty existen, entonces intentá -> agregar el producto y retornar 200 OK
-  // Si hay un error (la validación de la base de datos va a saltar como error, si no le pasamos alguno de los items que requiere el modelo)
   async addProduct(req, res) {
     const { price, name, stockQty } = req.body;
     if ((price, name, stockQty)) {
@@ -43,12 +57,13 @@ class ProductController {
 
   async modifyProduct(req, res) {
     const { id } = req.params;
+    const bodyParams = ["stockQty", "shipping","name","price", "discount"]
 
-    if (Object.entries(req.body).length !== 0) {
-      // Esta linea chequea que el objeto esté vacio. Si usamos solamente req.body pasa la validación como si no estuviera vacío.
+    if ( bodyParams.includes) {
+      // Esta linea chequea que el objeto esté vacio. Si usamos solamente req.body pasa la validación como si no estuviera vacío. Object.entries(req.body).length !== 0 &&
       try {
         await this.productService.modifyProduct(id, req.body);
-        res.sendStatus(200);
+        res.send("Producto actualizado correctamente").status(200);
       } catch {
         res.sendStatus(500);
       }
