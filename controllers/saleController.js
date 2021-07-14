@@ -10,16 +10,24 @@ class SaleController {
   async addSale(req, res) {
     const { user, product } = req.body;
     const _product = await this.productService.getProductByName(product);
-
     const date = this.date.format("DD/MM/YYYY h:mm:ss a");
 
     const data = {
       product: _product,
       user: user,
-      date: date,
     };
-    const sale = await this.saleService.addSale(data);
-    res.send("sale");
+
+    if (data.product && data.user) {
+      try {
+        const sale = await this.saleService.addSale(data);
+        res.send("Venta agregada exitosamente").status(200);
+      } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+      }
+    } else {
+      res.sendStatus(400);
+    }
   }
 
   async getSales(req, res) {

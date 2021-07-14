@@ -1,28 +1,56 @@
 class UserController {
   constructor(userService) {
     this.userService = userService;
+    this.limit = 10;
   }
 
   async getUsers(req, res) {
-    const { limit } = req.query;
+    const { page } = req.query;
     const data = {
-      limit: parseInt(limit),
+      limit: this.limit,
+      offset: this.limit * (page - 1),
     };
-    const users = await this.userService.getUsers(data);
-
-    res.json(users);
+    if (page) {
+      try {
+        const users = await this.userService.getUsers(data);
+        res.json(users).status(200);
+      } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+      }
+    } else {
+      res.sendStatus(400);
+    }
   }
 
-  async getUserById(req, res, next) {
+  async getUserById(req, res) {
     const { id } = req.params;
-    const user = await this.userService.getUserById(id);
-    res.json(user).status(200);
+    if (id) {
+      try {
+        const user = await this.userService.getUserById(id);
+        res.json(user).status(200);
+      } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+      }
+    } else {
+      res.sendStatus(400);
+    }
   }
 
   async getUserByHandler(req, res) {
     const { handler } = req.params;
-    const user = await this.userService.getUserByHandler(handler);
-    res.json(user);
+    if (handler) {
+      try {
+        const user = await this.userService.getUserByHandler(handler);
+        res.json(user);
+      } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+      }
+    } else {
+      res.sendStatus(400);
+    }
   }
 
   async addUser(req, res) {

@@ -7,7 +7,7 @@ class UserService {
   }
 
   getUsers(data) {
-    const query = User.find().limit(data.limit).exec();
+    const query = User.find().limit(data.limit).skip(data.offset).exec();
     console.log(data.limit);
     return query;
   }
