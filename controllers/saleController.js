@@ -1,5 +1,3 @@
-const dayjs = require("dayjs");
-
 class SaleController {
   constructor(saleService, productService) {
     this.saleService = saleService;
@@ -10,7 +8,6 @@ class SaleController {
   async addSale(req, res) {
     const { user, product } = req.body;
     const _product = await this.productService.getProductByName(product);
-    const date = this.date.format("DD/MM/YYYY h:mm:ss a");
 
     const data = {
       product: _product,
