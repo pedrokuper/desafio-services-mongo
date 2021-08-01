@@ -19,7 +19,7 @@ const SaleInstance = new SaleController(
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
+  res.send("Hello! This is desafio services mongo");
 });
 
 //!Product Routes
